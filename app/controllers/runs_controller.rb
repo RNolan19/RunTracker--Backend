@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 class RunsController < OpenReadController
-  before_action :set_run, only: [:show, :update, :destroy]
+  before_action :set_run, only: %i[show update destroy]
 
   # GET /runs
   def index
@@ -39,13 +41,14 @@ class RunsController < OpenReadController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_run
-      @run = Run.find(params[:id])
-    end
 
-    # Only allow a trusted parameter "white list" through.
-    def run_params
-      params.require(:run).permit(:miles_ran, :duration_in_minutes)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_run
+    @run = currrent_user.runs.find(params[:id])
+  end
+
+  # Only allow a trusted parameter "white list" through.
+  def run_params
+    params.require(:run).permit(:miles_ran, :duration_in_minutes)
+  end
 end
