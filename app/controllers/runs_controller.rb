@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RunsController < OpenReadController
+class RunsController < ProtectedController
   before_action :set_run, only: %i[show update destroy]
 
   # GET /runs
@@ -44,7 +44,7 @@ class RunsController < OpenReadController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_run
-    @run = currrent_user.runs.find(params[:id])
+    @run = current_user.runs.find(params[:id])
   end
 
   # Only allow a trusted parameter "white list" through.
